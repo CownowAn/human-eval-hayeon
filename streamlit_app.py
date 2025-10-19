@@ -175,6 +175,19 @@ def main(args: argparse.Namespace):
             label="Completion",
             value=f"{st.session_state.current_index + 1} / {total_items}",
         )
+        
+        jump_to = st.number_input(
+            label="Go to instance number:",
+            min_value=1,
+            max_value=total_items,
+            value=st.session_state.current_index + 1,
+            step=1,
+        )
+        if st.button("Jump", use_container_width=True):
+            st.session_state.current_index = jump_to - 1
+            st.session_state.scroll_to_top = True
+            st.rerun()
+            
         st.header("Save Results")
         st.download_button(
             label="Download Annotations (CSV)",
